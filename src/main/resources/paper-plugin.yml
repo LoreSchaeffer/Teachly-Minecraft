@@ -1,0 +1,10 @@
+name: ${project.artifactId}
+version: ${project.version}
+main: ${plugin.main}
+description: ${project.description}
+authors: ['LoreSchaeffer', 'BisUmTo']
+website: 'https://github.com/MultiCoreNetwork/Teachly'
+api-version: 1.21
+load: STARTUP
+bootstrapper: ${project.groupId}.TeachlyBootstrap
+loader: ${project.groupId}.TeachlyLoader

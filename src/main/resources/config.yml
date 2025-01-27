@@ -1,0 +1,10 @@
+# Do not change this value if you don't know what you are doing.
+run-java-extractor: false
+
+# Messages used by the plugin.
+messages:
+  insufficient-perms: "<red>Insufficient permissions.</red>"
+  reload-success: "<green>Plugin reloaded successfully.</green>"
+
+# Do not change this value.
+file-version: 1.0
