@@ -42,11 +42,11 @@ import org.reflections.util.ConfigurationBuilder;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
-public class EventRegistry<E extends Event> implements Listener {
+public class EventRegistry implements Listener {
     private final Teachly plugin;
     private final Logger logger = Logger.getLogger();
     private final Map<String, Class<? extends Event>> events = new HashMap<>();
-    private final Map<EventGroup, EventListener<E>> listeners = new HashMap<>();
+    private final Map<EventGroup, EventListener> listeners = new HashMap<>();
 
     public EventRegistry(@NotNull Teachly plugin) {
         this.plugin = plugin;
@@ -101,7 +101,7 @@ public class EventRegistry<E extends Event> implements Listener {
         events.clear();
     }
 
-    public void registerListener(@NotNull Script script, @NotNull String callback, @NotNull Class<E> event, @NotNull EventPriority priority) {
+    public void registerListener(@NotNull Script script, @NotNull String callback, @NotNull Class<? extends Event> event, @NotNull EventPriority priority) {
         Preconditions.checkNotNull(script);
         Preconditions.checkNotNull(callback);
         Preconditions.checkNotNull(event);
@@ -109,7 +109,7 @@ public class EventRegistry<E extends Event> implements Listener {
 
         synchronized (listeners) {
             EventGroup group = new EventGroup(event, priority);
-            EventListener<E> listener = listeners.getOrDefault(group, new EventListener<>(plugin, event, priority));
+            EventListener listener = listeners.getOrDefault(group, new EventListener(plugin, event, priority));
             listener.registerCallback(new EventListener.ListenerCallback(script, callback));
             listeners.put(group, listener);
 
@@ -137,19 +137,19 @@ public class EventRegistry<E extends Event> implements Listener {
         logger.info("<dark_green>Script <yellow>{}</yellow> unregistered all listeners", script.getId());
     }
 
-    private final class EventGroup {
+    private static final class EventGroup {
         @NotNull
-        private final Class<E> event;
+        private final Class<? extends Event> event;
         @NotNull
         private final EventPriority priority;
 
-        private EventGroup(@NotNull Class<E> event, @NotNull EventPriority priority) {
+        private EventGroup(@NotNull Class<? extends Event> event, @NotNull EventPriority priority) {
             this.event = event;
             this.priority = priority;
         }
 
         @NotNull
-        public Class<E> event() {
+        public Class<? extends Event> event() {
             return event;
         }
 
@@ -180,5 +180,5 @@ public class EventRegistry<E extends Event> implements Listener {
         }
 
 
-        }
+    }
 }

@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package network.multicore.teachly.utils;
+package network.multicore.teachly.js.data;
 
 public class Result<T> {
     private final boolean success;

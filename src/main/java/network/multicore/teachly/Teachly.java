@@ -57,7 +57,7 @@ public class Teachly extends JavaPlugin {
     private final File configFile = new File(getDataFolder(), "config.yml");
     private YamlDocument config;
     private final List<Script> scripts = new ArrayList<>();
-    private EventRegistry<? extends Event> eventRegistry;
+    private EventRegistry eventRegistry;
     private static Teachly instance;
 
     public Teachly() {
@@ -74,7 +74,7 @@ public class Teachly extends JavaPlugin {
             return;
         }
 
-        eventRegistry = new EventRegistry<>(this);
+        eventRegistry = new EventRegistry(this);
         if (!eventRegistry.fetchEvents()) {
             onDisable();
             return;
@@ -132,7 +132,7 @@ public class Teachly extends JavaPlugin {
         onEnable();
     }
 
-    public EventRegistry<? extends Event> eventRegistry() {
+    public EventRegistry eventRegistry() {
         return eventRegistry;
     }
 

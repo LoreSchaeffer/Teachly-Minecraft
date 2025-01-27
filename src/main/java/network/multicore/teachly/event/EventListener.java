@@ -15,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventListener<E extends Event> implements Listener {
+public class EventListener implements Listener {
     private final Logger logger = Logger.getLogger();
     private final List<ListenerCallback> callbacks = new ArrayList<>();
     private final EventPriority priority;
 
-    public EventListener(@NotNull Plugin plugin, @NotNull Class<E> eventClass, @NotNull EventPriority priority) {
+    public EventListener(@NotNull Plugin plugin, @NotNull Class<? extends Event> eventClass, @NotNull EventPriority priority) {
         Preconditions.checkNotNull(plugin, "plugin");
         Preconditions.checkNotNull(eventClass, "eventClass");
         Preconditions.checkNotNull(priority, "priority");
